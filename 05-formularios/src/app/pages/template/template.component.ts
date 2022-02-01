@@ -8,23 +8,38 @@ import { PaisService } from 'src/app/service/pais.service';
   styles: [
   ]
 })
+
 export class TemplateComponent implements OnInit {
-  usuario = {
+  usuario =
+    {
     nombre: "",
     apellido: "",
-    correo: ""
-  }
-  
-  constructor(private paisService : PaisService) { }
+    correo: "",
+    pais:""
+  };
 
-  ngOnInit(): void {
+  paises:any;
+
+  constructor(private paisService : PaisService)
+  {
+    // this.paises.unshift({
+    //   name: 'Seleccione el país',
+    //   alpha3Code: ''
+    // });
+  }
+
+  ngOnInit(): void
+  {
     this.paisService.getPaises()
-      .subscribe(paises => {
-        console.log(paises);
+      .subscribe(dato =>
+      {
+        console.log(dato);
+        this.paises=dato;
       })
   }
 
-  guardar(forma: NgForm) {
+  guardar(forma: NgForm)
+  {
     console.log(forma)
     console.log(forma.value)
     if (forma.invalid) {
@@ -35,5 +50,5 @@ export class TemplateComponent implements OnInit {
     }
   }
 
-  
+
 }
