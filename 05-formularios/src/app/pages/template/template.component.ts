@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import { PaisService } from 'src/app/service/pais.service';
+import {InterfacePais} from "../interfaces/pais";
 
 @Component({
   selector: 'app-template',
@@ -18,14 +19,19 @@ export class TemplateComponent implements OnInit {
     pais:""
   };
 
-  paises:any[]=[];
+  paises:InterfacePais[]=[{
+    name: 'Seleccione el país',
+    alpha3Code: '',
+    hidden:true
+  }];
 
   constructor(private paisService : PaisService)
   {
-    this.paises.unshift({
-      name: 'Seleccione el país',
-      alpha3Code: ''
-    });
+    //coloco el primer elemento del array, ya no es necesario
+    // this.paises.unshift({
+    //   name: 'Seleccione el país',
+    //   alpha3Code: ''
+    // });
   }
 
   ngOnInit(): void
@@ -34,6 +40,7 @@ export class TemplateComponent implements OnInit {
       .subscribe(dato =>
       {
         console.log(dato);
+        //necesitamos hacer un for para introducir unoa uno cada pais en el paises
         for (let i = 0; i < dato.length; i++) {
           this.paises.push(dato[i])
         }
@@ -42,8 +49,7 @@ export class TemplateComponent implements OnInit {
 
   guardar(forma: NgForm)
   {
-    console.log(forma)
-    console.log(forma.value)
+    //tocolo que se ha puesto el foco sobre los input si lo ha hecho
     if (forma.invalid) {
       Object.values(forma.controls).forEach(control => {
         control.markAsTouched();

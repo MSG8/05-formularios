@@ -62,7 +62,7 @@
             #selectPaises="ngModel"
             [disabled]="paises.length===0"
             required >
-      <option *ngFor="let pais of paises" [value]="pais.alpha3Code">{{ pais.name }}</option>
+      <option *ngFor="let pais of paises" [hidden]="pais.hidden" [value]="pais.alpha3Code">{{ pais.name }}</option>
     </select>
   </div>
 
