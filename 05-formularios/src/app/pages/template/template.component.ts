@@ -18,14 +18,14 @@ export class TemplateComponent implements OnInit {
     pais:""
   };
 
-  paises:any;
+  paises:any[]=[];
 
   constructor(private paisService : PaisService)
   {
-    // this.paises.unshift({
-    //   name: 'Seleccione el país',
-    //   alpha3Code: ''
-    // });
+    this.paises.unshift({
+      name: 'Seleccione el país',
+      alpha3Code: ''
+    });
   }
 
   ngOnInit(): void
@@ -34,7 +34,9 @@ export class TemplateComponent implements OnInit {
       .subscribe(dato =>
       {
         console.log(dato);
-        this.paises=dato;
+        for (let i = 0; i < dato.length; i++) {
+          this.paises.push(dato[i])
+        }
       })
   }
 

@@ -11,7 +11,7 @@ export class PaisService {
 
   }
 
-  getPaises()
+  getPaises():Observable<any>
   {
     return this.httpClient.get('https://restcountries.com/v2/lang/es');
   }
