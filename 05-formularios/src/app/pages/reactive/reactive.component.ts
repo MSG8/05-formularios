@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {ValidadoresService} from "../../services/validadores.service";
 
 @Component({
   selector: 'app-reactive',
@@ -10,10 +11,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ReactiveComponent implements OnInit {
 
   forma!: FormGroup;
-  distrito : any;
-  ciudad: any;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private validaciones:ValidadoresService) {
     this.crearFormulario();
     this.cargarDatosFormulario();
   }
@@ -24,20 +23,28 @@ export class ReactiveComponent implements OnInit {
   crearFormulario(){
     this.forma = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', [Validators.required, Validators.minLength(5)]],
+      apellido: ['', [Validators.required, Validators.minLength(5),this.validaciones.noApellido] ],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
+      usuario : ['', , this.validaciones.existeUsuario],
+      pass1:['', [Validators.required]],
+      pass2:['', [Validators.required]],
       direccion: this.formBuilder.group({
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required]
       }),
       //Aquí vienen las declaraciones que teníamos
       pasatiempos: this.formBuilder.array([])
-    })
+    }, {
+      //le dice al formulario que es invalido
+        validators:this.validaciones.passwordsIguales('pass1', 'pass2')
+      }
+    )
 
   }
 
   // Si algún valor falla lo marca en rojo
   guardar(formGrupo: FormGroup) {
+    console.log(formGrupo);
     if (formGrupo.invalid) {
       Object.values(formGrupo.controls).forEach(control => {
         if (control instanceof FormGroup)
@@ -48,7 +55,7 @@ export class ReactiveComponent implements OnInit {
     }
 
     this.resetearDatosFormulario();
-    
+
     console.log(this.forma);
     // console.log(this.forma.value)
   }
@@ -59,7 +66,7 @@ export class ReactiveComponent implements OnInit {
   }
 
   cargarDatosFormulario() {
-    this.forma.setValue
+    this.forma.reset
       ({
         nombre: "Juan Carlos",
         apellido: "Valiño",
@@ -68,15 +75,17 @@ export class ReactiveComponent implements OnInit {
           distrito: "1A",
           ciudad: "Badajoz"
         }
-      })
+
+      });
+
+    ['comer', 'dormir'].forEach(valor => this.pasatiempos.push(this.formBuilder.control(valor,[Validators.required, Validators.minLength(5)])));
+
   }
 
   // TODO Preguntar a Nuno pagina 8
   resetearDatosFormulario() {
     this.forma.reset({
       nombre: "sin nombre",
-      apellido: "",
-      email: "",
       direccion: {
         distrito: "1A",
         ciudad: "Badajoz"
@@ -87,5 +96,23 @@ export class ReactiveComponent implements OnInit {
   get pasatiempos() {
     return this.forma.get('pasatiempos') as FormArray;
   }
+
+  agregarPasatiempo()
+  {
+    //llama al get
+    this.pasatiempos.push(this.formBuilder.control('',[Validators.required, Validators.minLength(5)]));
+  }
+
+  borrarPasatiempo(index: number)
+  {
+    this.pasatiempos.removeAt(index);
+  }
+
+  get pass2Valido() {
+    const pass1 = this.forma.get('pass1')?.value
+    const pass2 = this.forma.get('pass2')?.value
+    return (pass1 === pass2) ? true : false;
+  }
+
 
 }
