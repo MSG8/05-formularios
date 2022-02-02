@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -10,9 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ReactiveComponent implements OnInit {
 
   forma!: FormGroup;
+  distrito : any;
+  ciudad: any;
 
   constructor(private formBuilder: FormBuilder) {
     this.crearFormulario();
+    this.cargarDatosFormulario();
   }
 
   ngOnInit(): void {
@@ -26,8 +29,9 @@ export class ReactiveComponent implements OnInit {
       direccion: this.formBuilder.group({
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required]
-      })
-
+      }),
+      //Aquí vienen las declaraciones que teníamos
+      pasatiempos: this.formBuilder.array([])
     })
 
   }
@@ -43,6 +47,8 @@ export class ReactiveComponent implements OnInit {
       return;
     }
 
+    this.resetearDatosFormulario();
+    
     console.log(this.forma);
     // console.log(this.forma.value)
   }
@@ -50,6 +56,36 @@ export class ReactiveComponent implements OnInit {
   valido(titulo: any) {
     let input: any = this.forma.get(titulo);
     return !(input.invalid && input.touched);
+  }
+
+  cargarDatosFormulario() {
+    this.forma.setValue
+      ({
+        nombre: "Juan Carlos",
+        apellido: "Valiño",
+        email: "abcde@gmail.com",
+        direccion: {
+          distrito: "1A",
+          ciudad: "Badajoz"
+        }
+      })
+  }
+
+  // TODO Preguntar a Nuno pagina 8
+  resetearDatosFormulario() {
+    this.forma.reset({
+      nombre: "sin nombre",
+      apellido: "",
+      email: "",
+      direccion: {
+        distrito: "1A",
+        ciudad: "Badajoz"
+      }
+    });
+  }
+
+  get pasatiempos() {
+    return this.forma.get('pasatiempos') as FormArray;
   }
 
 }
