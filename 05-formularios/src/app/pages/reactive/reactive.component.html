@@ -1,6 +1,6 @@
 <h4>Formularios <small> reactivo </small></h4>
 <hr>
-<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar(forma)">
 
   <div>
 
@@ -35,7 +35,7 @@
       <small class="text-danger" *ngIf="!valido('email')">Se deben introducir un email correcto</small>
     </div>
   </div>
-  
+
   <div class="form-group row" formGroupName="direccion">
     <label class="col-2 col-form-label">Dirección</label>
     <div class="form-row col-8 pr-1">

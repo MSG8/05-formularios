@@ -29,15 +29,15 @@ export class ReactiveComponent implements OnInit {
       })
 
     })
-    
+
   }
 
   // Si algún valor falla lo marca en rojo
-  guardar() {
-    if (this.forma.invalid) {
-      Object.values(this.forma.controls).forEach(control => {
+  guardar(formGrupo: FormGroup) {
+    if (formGrupo.invalid) {
+      Object.values(formGrupo.controls).forEach(control => {
         if (control instanceof FormGroup)
-          Object.values(control.controls).forEach(control => control.markAsTouched());
+          this.guardar(control);
         control.markAsTouched();
       })
       return;
