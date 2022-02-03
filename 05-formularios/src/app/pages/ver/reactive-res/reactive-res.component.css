@@ -1,0 +1,15 @@
+.card
+{
+  width: 40% !important;
+  margin: 0 auto !important;
+}
+.card a
+{
+  display: block;
+  margin-top: 20px;
+}
+.card img
+{
+  margin: 20px auto 0 auto;
+  width: 30%;
+}

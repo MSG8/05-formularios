@@ -8,12 +8,18 @@ import { ReactiveComponent } from './pages/reactive/reactive.component';
 import { FormsModule } from "@angular/forms"; //para que el formulario no se envie por defecto
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavComponent } from './pages/shared/nav/nav.component';
+import { TemplateResComponent } from './pages/ver/template-res/template-res.component';
+import { ReactiveResComponent } from './pages/ver/reactive-res/reactive-res.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateComponent,
-    ReactiveComponent
+    ReactiveComponent,
+    NavComponent,
+    TemplateResComponent,
+    ReactiveResComponent
   ],
   imports: [
     BrowserModule,

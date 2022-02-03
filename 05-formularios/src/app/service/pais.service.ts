@@ -14,6 +14,5 @@ export class PaisService {
   getPaises()
   {
     return this.httpClient.get<InterfacePais[]>('https://restcountries.com/v2/lang/es');
-    //le dices que devolvera un array de interfaces de pais
   }
 }

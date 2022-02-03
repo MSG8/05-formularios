@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ValidadoresService} from "../../services/validadores.service";
+import {DatosFormularioService} from "../../services/datos-formulario.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-reactive',
@@ -11,8 +13,9 @@ import {ValidadoresService} from "../../services/validadores.service";
 export class ReactiveComponent implements OnInit {
 
   forma!: FormGroup;
+  estado=false;
 
-  constructor(private formBuilder: FormBuilder, private validaciones:ValidadoresService) {
+  constructor(private formBuilder: FormBuilder, private validaciones:ValidadoresService,private datosFormulario:DatosFormularioService,private router:Router) {
     this.crearFormulario();
     this.cargarDatosFormulario();
   }
@@ -44,7 +47,15 @@ export class ReactiveComponent implements OnInit {
 
   // Si algún valor falla lo marca en rojo
   guardar(formGrupo: FormGroup) {
-    console.log(formGrupo);
+
+    console.log(formGrupo)
+    if (!formGrupo.parent)
+    {
+      if(this.datosFormulario.tomarDatos(formGrupo))
+      {
+        this.router.navigate(['/verReac']);
+      }
+    }
     if (formGrupo.invalid) {
       Object.values(formGrupo.controls).forEach(control => {
         if (control instanceof FormGroup)
@@ -74,7 +85,8 @@ export class ReactiveComponent implements OnInit {
         direccion: {
           distrito: "1A",
           ciudad: "Badajoz"
-        }
+        },
+
 
       });
 
@@ -91,6 +103,7 @@ export class ReactiveComponent implements OnInit {
         ciudad: "Badajoz"
       }
     });
+
   }
 
   get pasatiempos() {
