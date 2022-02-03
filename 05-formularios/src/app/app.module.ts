@@ -8,19 +8,26 @@ import { ReactiveComponent } from './pages/reactive/reactive.component';
 import { FormsModule } from "@angular/forms"; //para que el formulario no se envie por defecto
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from './components/modal/modal.component';
+import { SharedModule } from './components/shared/shared.module';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateComponent,
-    ReactiveComponent
+    ReactiveComponent,
+    ModalComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

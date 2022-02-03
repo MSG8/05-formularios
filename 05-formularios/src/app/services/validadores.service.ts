@@ -43,18 +43,18 @@ export class ValidadoresService
     }
   }
 
-  existeUsuario(control:FormControl): Promise<errorValidate> | Observable<errorValidate>
-  {
-    return new Promise( (resolve, reject) =>
-    {
-      setTimeout(() =>
-      {
-        if (control.value === "Manuel")
-        {
-          resolve({ existe: true })
-        }
-      }, 1000);
-    });
-  }
+  // existeUsuario(control:FormControl): Promise<errorValidate> | Observable<errorValidate>
+  // {
+  //   return new Promise( (resolve, reject) =>
+  //   {
+  //     setTimeout(() =>
+  //     {
+  //       if (control.value === "Manuel")
+  //       {
+  //         resolve({ existe: true })
+  //       }
+  //     }, 1000);
+  //   });
+  // }
 
 }
