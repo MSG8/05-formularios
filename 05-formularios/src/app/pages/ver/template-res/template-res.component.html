@@ -1,0 +1,15 @@
+<div class="alert alert-success" role="alert">
+  Datos guardados correctamente
+</div>
+<div class="card bg-dark text-white">
+  <img src="assets/img/icono.png" class="card-img-top" alt="imagen usuario">
+  <div class="card-body ">
+    <div class="d-flex">
+      <h4 class="card-title">{{datos.nombre}} {{datos.apellido}}</h4>
+      <p class="card-text px-2"> <span class="badge bg-success">{{datos.selectPaises}}</span></p>
+    </div>
+    <p class="card-text lead"> Su correo es: {{datos.correo}} </p>
+
+    <a [routerLink]="['../reactive']" class="btn btn-primary"> HAZ UN REACTIVE </a>
+  </div>
+</div>

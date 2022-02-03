@@ -43,7 +43,7 @@ export class ValidadoresService
     }
   }
 
-  existeUsuario(control:FormControl): Promise<errorValidate> | Observable<errorValidate>
+  existeUsuario(control:FormControl): Promise<errorValidate | null> | Observable<errorValidate>
   {
     return new Promise( (resolve, reject) =>
     {
@@ -52,6 +52,10 @@ export class ValidadoresService
         if (control.value === "Manuel")
         {
           resolve({ existe: true })
+        }
+        else
+        {
+          resolve(null);
         }
       }, 1000);
     });

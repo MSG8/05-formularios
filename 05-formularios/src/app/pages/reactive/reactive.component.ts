@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ValidadoresService} from "../../services/validadores.service";
+import {DatosFormularioService} from "../../services/datos-formulario.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-reactive',
@@ -12,7 +14,7 @@ export class ReactiveComponent implements OnInit {
 
   forma!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private validaciones:ValidadoresService) {
+  constructor(private formBuilder: FormBuilder, private validaciones:ValidadoresService,private datosFormulario:DatosFormularioService,private router:Router) {
     this.crearFormulario();
     this.cargarDatosFormulario();
   }
@@ -25,7 +27,8 @@ export class ReactiveComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, Validators.minLength(5),this.validaciones.noApellido] ],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
-      usuario : ['', , this.validaciones.existeUsuario],
+      // fechaNacimiento: ['', [Validators.required]],
+        usuario : ['', , this.validaciones.existeUsuario],
       pass1:['', [Validators.required]],
       pass2:['', [Validators.required]],
       direccion: this.formBuilder.group({
@@ -44,7 +47,14 @@ export class ReactiveComponent implements OnInit {
 
   // Si algún valor falla lo marca en rojo
   guardar(formGrupo: FormGroup) {
-    console.log(formGrupo);
+    console.log(formGrupo)
+    if (!formGrupo.parent)
+    {
+      if(this.datosFormulario.tomarDatos(formGrupo))
+      {
+        this.router.navigate(['/verReac']);
+      }
+    }
     if (formGrupo.invalid) {
       Object.values(formGrupo.controls).forEach(control => {
         if (control instanceof FormGroup)
