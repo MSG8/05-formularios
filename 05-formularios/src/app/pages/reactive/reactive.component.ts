@@ -13,7 +13,6 @@ import {Router} from "@angular/router";
 export class ReactiveComponent implements OnInit {
 
   forma!: FormGroup;
-  estado=false;
 
   constructor(private formBuilder: FormBuilder, private validaciones:ValidadoresService,private datosFormulario:DatosFormularioService,private router:Router) {
     this.crearFormulario();
@@ -28,7 +27,8 @@ export class ReactiveComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, Validators.minLength(5),this.validaciones.noApellido] ],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
-      usuario : ['', , this.validaciones.existeUsuario],
+      // fechaNacimiento: ['', [Validators.required]],
+        usuario : ['', , this.validaciones.existeUsuario],
       pass1:['', [Validators.required]],
       pass2:['', [Validators.required]],
       direccion: this.formBuilder.group({
@@ -47,7 +47,6 @@ export class ReactiveComponent implements OnInit {
 
   // Si algún valor falla lo marca en rojo
   guardar(formGrupo: FormGroup) {
-
     console.log(formGrupo)
     if (!formGrupo.parent)
     {
@@ -85,8 +84,7 @@ export class ReactiveComponent implements OnInit {
         direccion: {
           distrito: "1A",
           ciudad: "Badajoz"
-        },
-
+        }
 
       });
 
@@ -103,7 +101,6 @@ export class ReactiveComponent implements OnInit {
         ciudad: "Badajoz"
       }
     });
-
   }
 
   get pasatiempos() {

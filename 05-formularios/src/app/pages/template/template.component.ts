@@ -13,7 +13,6 @@ import {Router} from "@angular/router";
 })
 
 export class TemplateComponent implements OnInit {
-
   usuario =
     {
     nombre: "",
