@@ -48,7 +48,7 @@
           Se necesita introducir el <strong>email</strong>
         </mat-error>
       </mat-form-field>
-    
+
     </div>
   </div>
 
@@ -68,7 +68,7 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">Contraseña</label>
     <div class="col-8">
-      <input class="form-control" type="password" placeholder="Contraseña" formControlName="pass1"
+      <input class="form-control" type="password" placeholder="Contraseña" #valor formControlName="pass1" (input)="nivel(valor)"
         [class.is-invalid]="!valido('pass1')" />
     </div>
   </div>
@@ -78,6 +78,10 @@
       <input class="form-control" type="password" placeholder="Contraseña" formControlName="pass2"
         [class.is-invalid]="!pass2Valido || !valido('pass2')" />
     </div>
+  </div>
+  <div *ngIf="mostrarNivel">
+    <small > NIVEL DE CONTRASEÑA </small>
+    <p> {{resultado}} </p>
   </div>
 
   <div class="form-group row">

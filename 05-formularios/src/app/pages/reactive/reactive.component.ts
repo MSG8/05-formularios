@@ -13,6 +13,8 @@ import {Router} from "@angular/router";
 export class ReactiveComponent implements OnInit {
 
   forma!: FormGroup;
+  mostrarNivel= false;
+  resultado: string = "sin nivel";
 
   constructor(private formBuilder: FormBuilder, private validaciones:ValidadoresService,private datosFormulario:DatosFormularioService,private router:Router) {
     this.crearFormulario();
@@ -125,4 +127,45 @@ export class ReactiveComponent implements OnInit {
     return (pass1 === pass2) ? true : false;
   }
 
+  nivel(valor: HTMLInputElement)
+  {
+    console.log(valor)
+    this.mostrarNivel=true;
+
+    let nivel:number = 0;
+    let nivel1 = new RegExp(/^(.*)$/); //cualquier caracter y rango
+    let nivel2 = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{3,}$/); //minimo mayusculas, y numero y 3 rango minimos
+    let nivel3 = new RegExp(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,}$/); //de 8 a mas caracteres caracteres, digito, minuscula,mayuculas y carcates expeciales
+
+    if (valor.value.match(nivel1)) // Para el string
+    {
+      nivel=1;
+    }
+
+    if (valor.value.match(nivel2)) // Para el string
+    {
+      nivel=2;
+    }
+
+    if (valor.value.match(nivel3)) // Para el string
+    {
+      nivel=3;
+    }
+
+    switch (nivel)
+    {
+      case 1:
+        this.resultado="Nivel bajo de contraseña"
+        break;
+      case 2:
+        this.resultado="Nivel medio de contraseña"
+        break;
+      case 3:
+        this.resultado="Nivel alto de contraseña"
+        break;
+      default:
+        this.resultado="Nivel invalido"
+        break;
+    }
+  }
 }

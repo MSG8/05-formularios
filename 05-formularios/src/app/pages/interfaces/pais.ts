@@ -1,5 +1,5 @@
 export interface InterfacePais {
-  name?:           string;
+  name:           string;
   hidden?:         boolean;
   topLevelDomain?: string[];
   alpha2Code?:     string;

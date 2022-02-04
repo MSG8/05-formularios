@@ -29,12 +29,18 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-8">
-      <input class="form-control" type="email" [ngModel]="usuario.correo"
-        [class.is-invalid]="correo.invalid && correo.touched" #correo="ngModel" name="correo"
-        placeholder="Correo electrónico" required
-        pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
-      <small class="form-text text-danger" *ngIf="correo.invalid && correo.touched">Debe introducir un correo
-        valido</small>
+      <!--             FALLA PATTERN -->
+      <input class="form-control"
+             type="email"
+             [ngModel]="usuario.correo"
+             [class.is-invalid]="correo.invalid && correo.touched"
+             #correo="ngModel"
+             name="correo"
+             placeholder="Correo electrónico"
+             required >
+      <small class="form-text text-danger" *ngIf="correo.invalid && correo.touched">
+        Debe introducir un correo valido
+      </small>
     </div>
   </div>
 
@@ -70,13 +76,41 @@
     </div>
   </div>
 
-  <div class="form-group row">
+<!--  <div class="form-group row">-->
+<!--    <label class="col-2 col-form-label">Paises</label>-->
+<!--    <select class="form-control"
+ name="selectPaises"
+  [(ngModel)]="usuario.pais"-->
+<!--      [class.is-invalid]="selectPaises.invalid && selectPaises.touched"
+#selectPaises="ngModel"-->
+<!--      [disabled]="paises.length===0" required>-->
+<!--      <option *ngFor="let pais of paises" [hidden]="pais.hidden" [value]="pais.alpha3Code">{{ pais.name }}</option>-->
+<!--    </select>-->
+<!--  </div>-->
+
+  <div>
     <label class="col-2 col-form-label">Paises</label>
-    <select class="form-control" name="selectPaises" [(ngModel)]="usuario.pais"
-      [class.is-invalid]="selectPaises.invalid && selectPaises.touched" #selectPaises="ngModel"
-      [disabled]="paises.length===0" required>
-      <option *ngFor="let pais of paises" [hidden]="pais.hidden" [value]="pais.alpha3Code">{{ pais.name }}</option>
-    </select>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Pais</mat-label>
+      <!--        Hasta aqui bien      -->
+      <input type="text"
+             matInput
+             name="pais"
+             [(ngModel)]="usuario.pais"
+             [matAutocomplete]="auto"
+             [class.is-invalid]="selectPaises.invalid && selectPaises.touched"
+             #selectPaises="ngModel"
+             required>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <ng-container *ngFor="let pais of paises">
+          <mat-option *ngIf="buscarPais(selectPaises.model,pais.name)"
+                      [hidden]="pais.hidden"
+                      [value]="pais">
+            {{pais.name}}
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </mat-form-field>
   </div>
 
   <div class="form-group row mt-3">
