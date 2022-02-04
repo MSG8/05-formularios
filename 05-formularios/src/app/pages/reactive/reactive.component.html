@@ -32,7 +32,7 @@
 
       <input class="form-control" formControlName="email" type="email" placeholder="Correo electrónico"
         [class.is-invalid]="!valido('email')">
-      <small class="text-danger" *ngIf="!valido('email')">Se deben introducir un email correcto</small>
+      <small class="text-danger" *ngIf="!valido('email')">Se debe introducir un email correcto</small>
     </div>
   </div>
 
@@ -62,7 +62,25 @@
     </div>
   </div>
 
-  <app-date-picker></app-date-picker>
+  <mat-form-field appearance="fill">
+  <mat-label>Fecha de Nacimiento</mat-label>
+  <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento"
+        [class.is-invalid]="!valido('fechaNacimiento')">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <small class="text-danger" *ngIf="!valido('fechaNacimiento')">Se debe introducir una fecha de nacimiento</small>
+
+  <br>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Teléfono</mat-label>
+    <span matPrefix>+34 &nbsp;</span>
+    <input type="tel" matInput placeholder="666-666-666" formControlName="numTelefono"
+          [class.is-invalid]="!valido('numTelefono')">
+    <mat-icon matSuffix>mode_edit</mat-icon>
+  </mat-form-field>
+  <small class="text-danger" *ngIf="!valido('numTelefono')">Se debe introducir un teléfono correcto</small>
 
   <div class="form-group row" formGroupName="direccion">
     <label class="col-2 col-form-label">Dirección</label>
@@ -111,6 +129,7 @@
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
       <app-modal></app-modal>
+      <button type="reset" class="btn btn-secondary" style="margin-left: 10px;">Limpiar</button>
     </div>
   </div>
 

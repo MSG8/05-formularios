@@ -47,11 +47,39 @@
              name="correo"
              placeholder="Correo electrónico"
              required
-             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+             pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
       <small class="form-text text-danger" *ngIf="correo.invalid && correo.touched">Debe introducir un correo valido</small>
     </div>
   </div>
 
+  <mat-form-field appearance="fill">
+  <mat-label>Fecha de Nacimiento</mat-label>
+  <input matInput [matDatepicker]="picker"
+            [ngModel]="usuario.fechaNacimiento"
+            [class.is-invalid]="fechaNacimiento.invalid && fechaNacimiento.touched"
+            #fechaNacimiento="ngModel"
+            name="fechaNacimiento"
+            required>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <small class="form-text text-danger" *ngIf="fechaNacimiento.invalid && fechaNacimiento.touched">Debe introducir una fecha de Nacimiento</small>
+
+  <br>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Teléfono</mat-label>
+    <span matPrefix>+34 &nbsp;</span>
+    <input type="tel" matInput placeholder="666-666-666"
+          [ngModel]="usuario.numTelefono"
+          [class.is-invalid]="numTelefono.invalid && numTelefono.touched"
+          #numTelefono="ngModel"
+          name="numTelefono"
+          minlength="9"
+          required>
+    <mat-icon matSuffix>mode_edit</mat-icon>
+  </mat-form-field>
+  <small class="form-text text-danger" *ngIf="numTelefono.invalid && numTelefono.touched">Debe introducir un número de teléfono válido</small>
 
   <div class="form-group row">
     <label class="col-2 col-form-label">Paises</label>
@@ -99,9 +127,8 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary btn-block">
-        Guardar
-      </button>
+      <app-modal></app-modal>
+      <button type="reset" class="btn btn-secondary" style="margin-left: 10px;">Limpiar</button>
     </div>
   </div>
 

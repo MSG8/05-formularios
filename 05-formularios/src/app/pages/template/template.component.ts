@@ -18,6 +18,8 @@ export class TemplateComponent implements OnInit {
     nombre: "",
     apellido: "",
     correo: "",
+    fechaNacimiento: "",
+    numTelefono: "",
     pais:""
   };
 
