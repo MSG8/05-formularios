@@ -68,8 +68,14 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">Contraseña</label>
     <div class="col-8">
-      <input class="form-control" type="password" placeholder="Contraseña" #valor formControlName="pass1" (input)="nivel(valor)"
-        [class.is-invalid]="!valido('pass1')" />
+      <div class="d-flex">
+        <input class="form-control" type="password" placeholder="Contraseña" #valor formControlName="pass1" (input)="nivel(valor) "
+               [class.is-invalid]="!valido('pass1')" />
+        <img class="img-fluid iconoOjo" *ngIf="mostrarNivel" (click)="cambiar(valor)" src="assets/img/eye.png">
+        <img class="img-fluid iconoOjo" *ngIf="!mostrarNivel" (click)="cambiar(valor)" src="assets/img/hidden.png">
+      </div>
+
+      <small id="ejemploId" class="oculto" > {{resultado}} </small>
     </div>
   </div>
   <div class="form-group row">
@@ -78,10 +84,6 @@
       <input class="form-control" type="password" placeholder="Contraseña" formControlName="pass2"
         [class.is-invalid]="!pass2Valido || !valido('pass2')" />
     </div>
-  </div>
-  <div *ngIf="mostrarNivel">
-    <small > NIVEL DE CONTRASEÑA </small>
-    <p> {{resultado}} </p>
   </div>
 
   <div class="form-group row">

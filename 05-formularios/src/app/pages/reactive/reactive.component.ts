@@ -129,8 +129,10 @@ export class ReactiveComponent implements OnInit {
 
   nivel(valor: HTMLInputElement)
   {
-    console.log(valor)
     this.mostrarNivel=true;
+    let domNivel:any=document.getElementById("ejemploId"); //barra progreso de la  musica
+    //cuidado con el ngif si usas Dom
+    domNivel.classList.remove('oculto');
 
     let nivel:number = 0;
     let nivel1 = new RegExp(/^(.*)$/); //cualquier caracter y rango
@@ -156,16 +158,38 @@ export class ReactiveComponent implements OnInit {
     {
       case 1:
         this.resultado="Nivel bajo de contraseña"
+        domNivel.style.color = "#ff0000";
         break;
       case 2:
         this.resultado="Nivel medio de contraseña"
+        domNivel.style.color = "#cbd303";
         break;
       case 3:
         this.resultado="Nivel alto de contraseña"
+        domNivel.style.color = "#00ff04";
         break;
       default:
         this.resultado="Nivel invalido"
+        domNivel.style.color = "#ff0000";
         break;
+    }
+
+    if (valor.value.replace(/ /g, "").length ==0)
+    {
+      domNivel.classList.add('oculto');
+    }
+  }
+
+  cambiar(valor: HTMLInputElement) {
+    console.log(valor);
+    this.mostrarNivel=! this.mostrarNivel;
+    if (valor.type=="password")
+    {
+      valor.type="text";
+    }
+    else
+    {
+      valor.type="password";
     }
   }
 }
