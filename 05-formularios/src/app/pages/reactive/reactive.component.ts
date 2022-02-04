@@ -25,8 +25,8 @@ export class ReactiveComponent implements OnInit {
   crearFormulario(){
     this.forma = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', [Validators.required, Validators.minLength(5),this.validaciones.noApellido] ],
-      email: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/")]],
+      apellido: ['', [Validators.required, Validators.minLength(5),this.validaciones.noApellido]],
+      email: ['', [Validators.required, Validators.email]],
       fechaNacimiento: ['', [Validators.required]],
       numTelefono: ['', [Validators.required, Validators.minLength(9)]],
       usuario : ['', , this.validaciones.existeUsuario],
@@ -124,6 +124,5 @@ export class ReactiveComponent implements OnInit {
     const pass2 = this.forma.get('pass2')?.value
     return (pass1 === pass2) ? true : false;
   }
-
 
 }
